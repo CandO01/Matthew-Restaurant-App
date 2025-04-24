@@ -3,6 +3,13 @@ const cartCount = document.getElementById('span-count');
 const cartList = document.querySelector('.your-cart-list');
 const bodyElement = document.body
 const mainElement = document.getElementById('main')
+const message = document.getElementById('msgBox')
+
+ // Initialize EmailJS
+ (function() {
+  emailjs.init("QA3cGRivo0YrsaSYv"); // Replace with your actual EmailJS public key
+})();
+
 
 const imageUrl = {
   image12: './images/celebration.gif',
@@ -177,6 +184,27 @@ function changeQuantity(index, delta) {
 
 
 let confirmOrder = ()=>{
+  // This is to send a feedback mail to the user
+    const msgBox = document.getElementById("msgBox");
+
+
+  emailjs.sendForm("service_83lvxrm", "template_pw47dsc", this)
+    .then(() => {
+      msgBox.innerHTML = "Your order is received. A confirmation email has been sent!";
+      msgBox.style.cssText =`
+                            color: green;
+                            background-color: white;
+                            padding: 1.25rem;
+                            text-align: center;
+                            `;
+      this.reset();
+    }, (err) => {
+      console.error("Failed to send email:", err);
+      msgBox.innerHTML = "Something went wrong. Please try again.";
+      msgBox.style.color = "red";
+    });
+
+  
   // Save cart details before clearing
   const confirmedCart = [...cart];
   const confirmedTotal = totalPrice;
