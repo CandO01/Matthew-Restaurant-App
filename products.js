@@ -5,11 +5,6 @@ const bodyElement = document.body
 const mainElement = document.getElementById('main')
 const message = document.getElementById('msgBox')
 
- // Initialize EmailJS
- (function() {
-  emailjs.init("QA3cGRivo0YrsaSYv"); // Replace with your actual EmailJS public key
-})();
-
 
 const imageUrl = {
   image12: './images/celebration.gif',
